@@ -24,11 +24,11 @@ function App() {
     },
   });
 
-  
+
   return (
 
     <div>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={theme} sx={{ color: 'red' }}>
 
         <BrowserRouter>
           {/* <div>
