@@ -3,6 +3,7 @@ import { Formik, Form, ErrorMessage } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from 'yup';
 import axios from "axios";
+import "react-toastify/dist/ReactToastify.css";
 import AuthService from "../services/authService";
 import { toast } from 'react-toastify';
 
@@ -16,9 +17,9 @@ const Form1 = () => {
     });
 
     const [userData, setUserData] = useState();
-    const getData = async() => {
+    const getData = async () => {
 
-      await axios.get(`https://book-e-sell-node-api.vercel.app/api/user/byId?id=${625}`).then((response) => setUserData(response.data.result));
+        await axios.get(`https://book-e-sell-node-api.vercel.app/api/user/byId?id=${625}`).then((response) => setUserData(response.data.result));
     };
 
     // useEffect(() => {
@@ -50,10 +51,13 @@ const Form1 = () => {
             password: values.password,
         };
 
-        axios
-            .post("https://book-e-sell-node-api.vercel.app/api/user", payload).then((response) => {
-                if (response && response.code === 200) {
-                    toast("Data Submited successfully");
+        await AuthService
+            .Register(payload)
+            .then((response) => {
+                if (response && response.status === 200) {
+                    toast.success("Data Submited successfully", {
+                        position: "bottom-right",
+                    });
                 }
 
             })
