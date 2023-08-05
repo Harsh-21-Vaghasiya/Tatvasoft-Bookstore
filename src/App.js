@@ -8,6 +8,7 @@ import globalStyles from './styles/globalStyles';
 import Form from './components/Form';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
+import Login from './pages/Login';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
@@ -58,7 +59,8 @@ function App() {
           <Routes>
 
 
-            <Route path='/' element={<HomePage username={'harsg'} />}></Route>
+            <Route path='/' element={<Login/>}></Route>
+            <Route path='/home' element={<HomePage username={'harsg'} />}></Route>
             <Route path='/BookList' element={<BooksList />}></Route>
             <Route path='/form' element={<Form />}></Route>
             <Route path='*' element={<PageNotFound />}></Route>
