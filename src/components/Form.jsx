@@ -2,6 +2,10 @@ import { Button, FormHelperText, TextField, Typography } from "@mui/material";
 import { Formik, Form, ErrorMessage } from "formik";
 import React, { useEffect, useState } from "react";
 import * as Yup from 'yup';
+import axios from "axios";
+import AuthService from "../services/authService";
+import { toast } from 'react-toastify';
+
 const Form1 = () => {
 
     const [username, setusername] = useState("");
@@ -11,12 +15,22 @@ const Form1 = () => {
         password: password,
     });
 
-    useEffect(() => {
-        if (UserDetails.username.length > 4) {
-            console.log('use effect called with username');
-        }
-    }, [UserDetails.username]);
+    const [userData, setUserData] = useState();
+    const getData = async() => {
 
+      await axios.get(`https://book-e-sell-node-api.vercel.app/api/user/byId?id=${625}`).then((response) => setUserData(response.data.result));
+    };
+
+    // useEffect(() => {
+    //     if (UserDetails.username.length > 4) {
+    //         console.log('use effect called with username');
+    //     }
+    // }, [UserDetails.username]);
+
+    useEffect(() => {
+        getData();
+    }, [])
+    console.log(userData);
     const validationSchema = Yup.object().shape({
         userName: Yup.string().required("Username is required"),
         email: Yup.string().email().required("Email is required"),
@@ -24,19 +38,42 @@ const Form1 = () => {
         age: Yup.number().min(18),
     })
 
-    const handleSubmit = () => {
-        console.log("Username", UserDetails.username);
-        console.log("Password", UserDetails.password);
+    const handleSubmit = async (values) => {
+        // console.log("Username", UserDetails.username);
+        // console.log("Password", UserDetails.password);
+
+        const payload = {
+            firstName: values.userName,
+            lastName: "test",
+            email: values.email,
+            roleId: 2,
+            password: values.password,
+        };
+
+        axios
+            .post("https://book-e-sell-node-api.vercel.app/api/user", payload).then((response) => {
+                if (response && response.code === 200) {
+                    toast("Data Submited successfully");
+                }
+
+            })
+            .catch((error) => {
+                toast("Error! unable to submit the form");
+            });
+        // await AuthService.Register(payload).then((response) => {
+        //    
+
+        // }).catch((error) => { });
 
     }
     return (
 
         <Formik initialValues={{ userName: '', age: '', email: '', password: '' }}
-            onSubmit={(values) => handleSubmit()}
+            onSubmit={(values) => handleSubmit(values)}
             validationSchema={validationSchema}>
             {({ values, errors, setFieldValue, handleBlur }) => {
 
-                console.log("error", errors);
+                // console.log("error", errors);
                 return (
                     <Form>
                         <div className="form-demo">
@@ -46,7 +83,7 @@ const Form1 = () => {
                                 variant="outlined"
                                 error={errors.userName}
                                 value={values.userName}
-                                
+
                                 onChange={(e) => setFieldValue("userName", e.target.value)}
                                 onBlur={handleBlur} />
                             <FormHelperText error>

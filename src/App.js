@@ -8,6 +8,7 @@ import globalStyles from './styles/globalStyles';
 import Form from './components/Form';
 import { ThemeProvider } from '@emotion/react';
 import { createTheme } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
       <ThemeProvider theme={theme} sx={{ color: 'red' }}>
 
         <BrowserRouter>
+          <ToastContainer />
           {/* <div>
         <img src={logo} alt='logo'></img>
       </div> */}
