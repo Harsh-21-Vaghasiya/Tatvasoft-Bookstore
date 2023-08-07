@@ -5,10 +5,13 @@ import css from "./style";
 import * as Yup from "yup";
 import AuthService from "../../services/authService";
 import { toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 
-const login = () => {
+
+const Login = () => {
+    const navigate = useNavigate();
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email().required("Please enter a valid email"),
@@ -16,25 +19,26 @@ const login = () => {
     });
 
     const handleSubmit = async (values) => {
-
-        const payload={
-            email:values.email,
-            password:values.password,
+        const payload = {
+            email: values.email,
+            password: values.password,
         };
-
-       await AuthService.Login(payload).then((response) => {
+        
+        await AuthService.Login(payload).then((response) => {
             if (response && response.status === 200) {
                 toast.success("Login successful", {
                     position: "bottom-right",
                 });
-            // useNavigate("/home");
+                navigate('/booklist');
+                Cookies.set('auth_email', values.email);
+                
             }
         }).catch((error) => {
             toast.error(error.message);
             toast("unauthorized Login");
         })
     }
-    
+
     return (
         <div>
             <div>
@@ -91,4 +95,4 @@ const login = () => {
     )
 };
 
-export default login;
+export default Login;

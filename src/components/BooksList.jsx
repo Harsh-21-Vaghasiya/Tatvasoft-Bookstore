@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import WithAuth from "../layout/WithAuth";
 
 const BooksList = () => {
 
@@ -14,4 +15,4 @@ const BooksList = () => {
         <Button variant="contained" color="info" onClick={() => { handleButtonclick() }}>Go to Home</Button>
     </>)
 };
-export default BooksList;
+export default WithAuth(BooksList);

@@ -61,7 +61,7 @@ function App() {
 
             <Route path='/' element={<Login/>}></Route>
             <Route path='/home' element={<HomePage username={'harsg'} />}></Route>
-            <Route path='/BookList' element={<BooksList />}></Route>
+            <Route path='/bookList' element={<BooksList />}></Route>
             <Route path='/form' element={<Form />}></Route>
             <Route path='*' element={<PageNotFound />}></Route>
           </Routes>

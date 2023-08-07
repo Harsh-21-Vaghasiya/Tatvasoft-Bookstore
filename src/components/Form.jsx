@@ -6,6 +6,7 @@ import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import AuthService from "../services/authService";
 import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 const Form1 = () => {
 
@@ -38,7 +39,8 @@ const Form1 = () => {
         password: Yup.string().min(8).required("Password is required"),
         age: Yup.number().min(18),
     })
-
+    
+    const navigate=useNavigate();
     const handleSubmit = async (values) => {
         // console.log("Username", UserDetails.username);
         // console.log("Password", UserDetails.password);
@@ -58,6 +60,7 @@ const Form1 = () => {
                     toast.success("Data Submited successfully", {
                         position: "bottom-right",
                     });
+                    navigate('/');
                 }
 
             })
