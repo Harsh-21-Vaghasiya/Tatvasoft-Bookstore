@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import { Button, FormHelperText, TextField, Typography } from "@mui/material";
 import css from "./style";
@@ -7,11 +7,13 @@ import AuthService from "../../services/authService";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/authContext";
 
 
 
 const Login = () => {
     const navigate = useNavigate();
+    const userContext = useContext(AuthContext);
 
     const validationSchema = Yup.object().shape({
         email: Yup.string().email().required("Please enter a valid email"),
@@ -23,15 +25,20 @@ const Login = () => {
             email: values.email,
             password: values.password,
         };
-        
-        await AuthService.Login(payload).then((response) => {
+
+        await AuthService
+        .Login(payload)
+        .then((response) => {
             if (response && response.status === 200) {
                 toast.success("Login successful", {
                     position: "bottom-right",
                 });
-                navigate('/booklist');
                 Cookies.set('auth_email', values.email);
-                
+                // userContext.setUser(response);
+
+                navigate('/booklist');
+
+
             }
         }).catch((error) => {
             toast.error(error.message);
