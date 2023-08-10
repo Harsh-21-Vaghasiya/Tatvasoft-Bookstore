@@ -1,13 +1,13 @@
 import { Button, Pagination, TextField, Typography } from "@mui/material";
 import WithAuth from "../../layout/WithAuth";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import bookService from "../../services/bookService";
 
 const BooksListing = () => {
 
 
-    const [books, setBooks] = useState();
+    const [books, setBooks] = useState([]);
     // const navigate = useNavigate();
     // const handleButtonclick = () => {
     //     navigate('/');
@@ -50,7 +50,7 @@ const BooksListing = () => {
             </div>
             <div className="flex justify-between items-center ">
                 <Typography variant="h6">
-                    Total - { } items
+                    Total - {books.length} items
                 </Typography>
                 <div className="flex items-center space-x-10">
                     <TextField
@@ -81,53 +81,20 @@ const BooksListing = () => {
                     </div>
                 </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10">
-                {/* {books.map((book, index) => ( */}
-                    <div
-                        className="rounded-lg shadow-xl flex flex-col space-y-4 border-black"
-                        // key={index}
-                    >
-                        <div className="w-full h-56 overflow-hidden rounded-lg">
-                            <img
-                                src=""
-                                alt=""
-                                className="w-full h-full object-cover"
-                            />
+                <div className="card-deck " g>
+                    {books.map((book, index) => (
+
+                        <div className="card" style={{ width: '18rem' }} key={index} >
+                            <img className="card-img-top" src={book.base64image} alt="Card image cap" />
+                            <div className="card-body">
+                                <h5 className="card-title">{book.name}</h5>
+                                <p className="card-text">{book.description}</p>
+
+                            </div>
                         </div>
-                        <div className="p-5">
-                            <h2 className="text-xl font-bold line-clamp-1 text-[#474747] ">
-                                {/* {book.name} */}sdfghjk
-                            </h2>
-                            <span className="text-gray-600 mt-2 font-semibold">
-                                {/* {book.category} */}kjgjisf
-                            </span>
-                            {/* <p className=" line-clamp-2 h-14 mt-2">{book.description}</p> */}
-                            <p className=" line-clamp-2 h-14 mt-2">sdfg</p>
-                            <p className=" mb-2 text-xl text-gray-500">
-                                MRP
-                                <span className="mx-1">&#8377;</span>
-                                {/* {book.price} */}hjfyu
-                            </p>
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    color: "white",
-                                    backgroundColor: "#f14d54",
-                                    "&:hover": {
-                                        backgroundColor: "#f14d54", // Change the hover background color
-                                    },
-                                    marginTop: "8px",
-                                    fontWeight: "bold",
-                                }}
-                                fullWidth
-                                // onClick={() => addToCart(book)}
-                            >
-                                add to cart
-                            </Button>
-                        </div>
-                    </div>
-                {/* //  ))} ; */}
-            </div>
+                    ))}
+                </div>
+           
 
             <div>
                 <Pagination

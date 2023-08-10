@@ -14,4 +14,4 @@ const BookService = class BookService {
 
 };
 
-export default  BookService(); 
+export default new BookService(); 

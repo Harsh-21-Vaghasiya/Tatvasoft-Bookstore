@@ -96,6 +96,7 @@ import Header from "./components/Header";
 import Login from "./pages/Login";
 import Footer from "./components/Footer";
 import BooksListing from"./pages/BooksListing";
+import AuthWrapper from "./context/authContext";
 
 
 function App() {
@@ -104,6 +105,7 @@ function App() {
   return (
     <div id="main">
       <Router>
+        <AuthWrapper>
         <Header />
         <Routes>
           <Route path="/" element={<Login />} />
@@ -114,9 +116,11 @@ function App() {
           <Route path="/book-name" element={<Name name={bookName} />} />
           <Route path="/book-price" element={<Price price={bookPrice} />} />
           {/* <Route path="/form" element={<Form />} /> */}
+         
         </Routes>
         <Footer />
         <ToastContainer />
+        </AuthWrapper>
       </Router>
     </div>
   );
