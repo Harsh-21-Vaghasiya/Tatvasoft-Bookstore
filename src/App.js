@@ -86,7 +86,7 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./components/Home";
+import HomePage from "./components/HomePage";
 import Name from "./components/Name";
 import Price from "./components/Price";
 import Form from "./components/Form";
@@ -106,9 +106,9 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
           <Route path="/register" element={<Form />} />
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           <Route path='/bookList' element={<BooksListing />}></Route>
 
           <Route path="/book-name" element={<Name name={bookName} />} />

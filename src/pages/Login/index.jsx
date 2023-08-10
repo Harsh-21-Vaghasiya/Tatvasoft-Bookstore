@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, { useContext } from "react";
 import { Formik, Form, ErrorMessage } from "formik";
 import { Button, FormHelperText, TextField, Typography } from "@mui/material";
 import css from "./style";
@@ -27,23 +27,23 @@ const Login = () => {
         };
 
         await AuthService
-        .Login(payload)
-        .then((response) => {
-            if (response && response.status === 200) {
-                toast.success("Login successful", {
-                    position: "bottom-right",
-                });
-                Cookies.set('auth_email', values.email);
-                // userContext.setUser(response);
+            .Login(payload)
+            .then((response) => {
+                if (response && response.status === 200) {
+                    toast.success("Login successful", {
+                        position: "bottom-right",
+                    });
+                    Cookies.set('auth_email', values.email);
+                    userContext.setUser(response.data);
 
-                navigate('/booklist');
+                    navigate('/booklist');
 
 
-            }
-        }).catch((error) => {
-            toast.error(error.message);
-            toast("unauthorized Login");
-        })
+                }
+            }).catch((error) => {
+                toast.error(error.message);
+                toast("unauthorized Login");
+            })
     }
 
     return (

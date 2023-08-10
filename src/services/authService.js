@@ -5,7 +5,7 @@ import axios from "axios";
 const BASEURL = "https://book-e-sell-node-api.vercel.app/api/user";
 
 
-class AuthService {
+const AuthService = class AuthService {
     Register = async (payload) => {
         return axios.post(`${BASEURL}`, payload);
     };
@@ -16,4 +16,4 @@ class AuthService {
 
 };
 
-export default new AuthService(); 
+export default AuthService(); 
