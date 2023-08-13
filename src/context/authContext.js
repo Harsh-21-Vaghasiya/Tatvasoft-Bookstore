@@ -1,5 +1,6 @@
 import Cookies from "js-cookie";
 import React, { Children, createContext, useState } from "react";
+import { json, useNavigate } from "react-router-dom";
 
 
 const intialUserValue = {
@@ -25,6 +26,9 @@ export const AuthContext = createContext(initialstate);
 const AuthWrapper = ({ children }) => {
 
 
+    // declaring use navigate
+    const navigate = useNavigate();
+
     // useState Declarations
     const [userData, setUserData] = useState();
 
@@ -32,21 +36,28 @@ const AuthWrapper = ({ children }) => {
     // Functions Declaration
 
     const setUser = (data) => {
-        Cookies.set("UserInfo", data);
-        console.log("data11", data);
+        // Cookies.set("UserInfo", JSON.stringify(data));
+        // console.log("data11", data);
         setUserData(data);
+
+
+        // set data in local system
+        localStorage.setItem("UserInfo", JSON.stringify(data));
     }
 
 
     const signOut = (data) => {
-        Cookies.set("UserInfo", {});
+        setUserData(intialUserValue);
+        localStorage.removeItem("UserInfo");
+        navigate("/");
+
     };
 
 
     // values Declaration
     let value = {
         setUser,
-        userData, 
+        user: userData,
         signOut
     };
 

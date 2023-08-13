@@ -88,7 +88,7 @@ const BooksListing = () => {
                     </div>
                 </div>
                 <Typography variant="h6" style={{ textAlign: "center", fontSize: "0.8rem" }}>
-                    Total - { } items found
+                    Total - { books.length} items found
                 </Typography>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10" style={{ display: 'flex', width: '100%', justifyContent: 'center', flexWrap: "wrap", margin: "0px" }}>

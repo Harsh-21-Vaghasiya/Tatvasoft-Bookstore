@@ -84,7 +84,7 @@
 // export default App;
 
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, json } from "react-router-dom";
 import "./App.css";
 import HomePage from "./components/HomePage";
 import Name from "./components/Name";
@@ -95,31 +95,37 @@ import Register from "./components/Form"
 import Header from "./components/Header";
 import Login from "./pages/Login";
 import Footer from "./components/Footer";
-import BooksListing from"./pages/BooksListing";
-import AuthWrapper from "./context/authContext";
+import BooksListing from "./pages/BooksListing";
+import AuthWrapper, { AuthContext } from "./context/authContext";
+import { useContext } from "react";
+import Cookies from "js-cookie";
 
 
 function App() {
   const bookName = "Rich Dad Poor Dad";
   const bookPrice = 175;
+  const userContext = useContext(AuthContext);
+  // const data = Cookies.get("UserInfo");
+  // const adata=(data);
+  console.log("user" + userContext.user);
   return (
     <div id="main">
       <Router>
         <AuthWrapper>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/register" element={<Form />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path='/bookList' element={<BooksListing />}></Route>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Form />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path='/bookList' element={<BooksListing />}></Route>
 
-          <Route path="/book-name" element={<Name name={bookName} />} />
-          <Route path="/book-price" element={<Price price={bookPrice} />} />
-          {/* <Route path="/form" element={<Form />} /> */}
-         
-        </Routes>
-        <Footer />
-        <ToastContainer />
+            <Route path="/book-name" element={<Name name={bookName} />} />
+            <Route path="/book-price" element={<Price price={bookPrice} />} />
+            {/* <Route path="/form" element={<Form />} /> */}
+
+          </Routes>
+          <Footer />
+          <ToastContainer />
         </AuthWrapper>
       </Router>
     </div>
