@@ -7,6 +7,8 @@ import Header from "./Components/Header";
 import Searchbar from "./Components/Searchbar";
 import MyNavigation from "./MyNavigation";
 import store from "./State/store";
+
+// function component for handle the routing
 function App() {
   return (
     <BrowserRouter>
